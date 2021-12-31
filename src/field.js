@@ -185,7 +185,7 @@ function isEnum(fieldDescriptor) {
  */
 function isOptional(rootDescriptor, fieldDescriptor) {
     if (rootDescriptor.syntax == "proto3") {
-        return fieldDescriptor.label != descriptor.FieldDescriptorProto.Label.LABEL_REQUIRED || fieldDescriptor.proto3_optional
+        return fieldDescriptor.proto3_optional
     }
     return fieldDescriptor.label == descriptor.FieldDescriptorProto.Label.LABEL_OPTIONAL;
 }
