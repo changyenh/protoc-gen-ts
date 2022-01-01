@@ -5,7 +5,7 @@ const field = require("./field");
 
 /**
  * Returns a enum for the enum descriptor
- * @param {descriptor.EnumDescriptorProto} enumDescriptor 
+ * @param {descriptor.EnumDescriptorProto} enumDescriptor
  */
 function createEnum(enumDescriptor) {
     const values = [];
@@ -71,7 +71,7 @@ function createFromObject(rootDescriptor, messageDescriptor) {
             if (field.isMessage(valueDescriptor) || !field.isString(keyDescriptor)) {
                 let keyExpr = ts.factory.createIdentifier("key");
                 let valueExpr = ts.factory.createIdentifier("value");
-  
+
 
                 if (coercer) {
                     keyExpr = ts.factory.createCallExpression(
@@ -174,23 +174,19 @@ function createFromObject(rootDescriptor, messageDescriptor) {
                     ]
                 );
             }
-        } 
+        }
 
         if (field.isOptional(rootDescriptor, fieldDescriptor)) {
             const propertyAccessor = ts.factory.createPropertyAccessExpression(
                 dataIdentifier,
                 fieldDescriptor.name
             );
-            let condition = ts.factory.createBinaryExpression(
-                propertyAccessor,
-                ts.factory.createToken(ts.SyntaxKind.ExclamationEqualsToken),
-                ts.factory.createNull()
-            );
+            let condition = propertyAccessor;
 
             if (field.isMap(fieldDescriptor)) {
                 condition = ts.factory.createBinaryExpression(
                     ts.factory.createTypeOfExpression(propertyAccessor),
-                    ts.factory.createToken(ts.SyntaxKind.EqualsEqualsToken),
+                    ts.factory.createToken(ts.SyntaxKind.EqualsEqualsEqualsToken),
                     ts.factory.createStringLiteral("object")
                 );
             }
@@ -271,8 +267,8 @@ function createFromObject(rootDescriptor, messageDescriptor) {
 }
 
 /**
- * 
- * @param {descriptor.FileDescriptorProto} rootDescriptor 
+ *
+ * @param {descriptor.FileDescriptorProto} rootDescriptor
  * @param {descriptor.DescriptorProto} messageDescriptor
  */
 function createToObject(rootDescriptor, messageDescriptor) {
@@ -400,11 +396,7 @@ function createToObject(rootDescriptor, messageDescriptor) {
                 ts.factory.createThis(),
                 fieldDescriptor.name
             );
-            let condition = ts.factory.createBinaryExpression(
-                propertyAccessor,
-                ts.factory.createToken(ts.SyntaxKind.ExclamationEqualsToken),
-                ts.factory.createNull()
-            );
+            let condition = propertyAccessor;
 
             if (field.isMap(fieldDescriptor)) {
                 condition = ts.factory.createBinaryExpression(
@@ -475,9 +467,9 @@ function createToObject(rootDescriptor, messageDescriptor) {
 }
 
 /**
- * 
- * @param {string} packageName 
- * @param {ts.NodeArray<ts.Statement>} statements 
+ *
+ * @param {string} packageName
+ * @param {ts.NodeArray<ts.Statement>} statements
  * @returns {ts.NodeArray<ts.Statement>}
  */
 function createNamespace(packageName, statements) {
@@ -499,8 +491,8 @@ function createNamespace(packageName, statements) {
 }
 
 /**
- * 
- * @param {descriptor.FileDescriptorProto} rootDescriptor 
+ *
+ * @param {descriptor.FileDescriptorProto} rootDescriptor
  * @param {descriptor.DescriptorProto} messageDescriptor
  */
 function createMessageSignature(rootDescriptor, messageDescriptor) {
@@ -578,8 +570,8 @@ function createMessageSignature(rootDescriptor, messageDescriptor) {
 }
 
 /**
- * 
- * @param {descriptor.FileDescriptorProto} rootDescriptor 
+ *
+ * @param {descriptor.FileDescriptorProto} rootDescriptor
  * @param {descriptor.DescriptorProto} messageDescriptor
  */
 function createPrimitiveMessageSignature(rootDescriptor, messageDescriptor) {
@@ -646,9 +638,9 @@ function createPrimitiveMessageSignature(rootDescriptor, messageDescriptor) {
 
 
 /**
- * 
- * @param {descriptor.FileDescriptorProto} rootDescriptor 
- * @param {descriptor.DescriptorProto} messageDescriptor 
+ *
+ * @param {descriptor.FileDescriptorProto} rootDescriptor
+ * @param {descriptor.DescriptorProto} messageDescriptor
  * @param {string} pbIdentifier
  */
 function createConstructor(
@@ -768,7 +760,7 @@ function createConstructor(
                                         dataIdentifier,
                                         fieldDescriptor.name
                                     ),
-                                    ts.factory.createToken(ts.SyntaxKind.ExclamationEqualsToken),
+                                    ts.factory.createToken(ts.SyntaxKind.ExclamationEqualsEqualsToken),
                                     ts.factory.createIdentifier("undefined"),
                                 ),
                             ),
@@ -821,7 +813,7 @@ function createConstructor(
 /**
  * Returns a get accessor for the field
  * @param {descriptor.FileDescriptorProto} rootDescriptor
- * @param {descriptor.FieldDescriptorProto} fieldDescriptor 
+ * @param {descriptor.FieldDescriptorProto} fieldDescriptor
  * @param {ts.Identifier} pbIdentifier
  */
 function createGetter(
@@ -859,8 +851,8 @@ function createGetter(
 
 /**
  * @param {descriptor.FileDescriptorProto} rootDescriptor
- * @param {descriptor.FieldDescriptorProto} fieldDescriptor 
- * @param {ts.Identifier} pbIdentifier 
+ * @param {descriptor.FieldDescriptorProto} fieldDescriptor
+ * @param {ts.Identifier} pbIdentifier
  * @param {string} getterType
  */
 function createGetterCall(
@@ -917,9 +909,9 @@ function createGetterCall(
 
 /**
  * Returns a class for the message descriptor
- * @param {number} index 
- * @param {descriptor.OneofDescriptorProto} oneofDescriptor 
- * @param {descriptor.DescriptorProto} messageDescriptor 
+ * @param {number} index
+ * @param {descriptor.OneofDescriptorProto} oneofDescriptor
+ * @param {descriptor.DescriptorProto} messageDescriptor
  * @param {ts.Identifier} pbIdentifier
  */
 function createOneOfGetter(index, oneofDescriptor, messageDescriptor, pbIdentifier) {
@@ -1008,10 +1000,10 @@ function createOneOfGetter(index, oneofDescriptor, messageDescriptor, pbIdentifi
 
 
 /**
- * @param {descriptor.FileDescriptorProto} rootDescriptor 
- * @param {descriptor.DescriptorProto} messageDescriptor 
- * @param {descriptor.FieldDescriptorProto} fieldDescriptor 
- * @param {ts.Identifier} pbIdentifier 
+ * @param {descriptor.FileDescriptorProto} rootDescriptor
+ * @param {descriptor.DescriptorProto} messageDescriptor
+ * @param {descriptor.FieldDescriptorProto} fieldDescriptor
+ * @param {ts.Identifier} pbIdentifier
  */
 function createSetter(
     rootDescriptor,
@@ -1052,10 +1044,10 @@ function createSetter(
 }
 
 /**
- * @param {descriptor.DescriptorProto} descriptor 
- * @param {descriptor.FieldDescriptorProto} fieldDescriptor 
- * @param {ts.Identifier} valueParameter 
- * @param {ts.Identifier} pbIdentifier 
+ * @param {descriptor.DescriptorProto} descriptor
+ * @param {descriptor.FieldDescriptorProto} fieldDescriptor
+ * @param {ts.Identifier} valueParameter
+ * @param {ts.Identifier} pbIdentifier
  */
 function createOneOfSetterBlock(descriptor, fieldDescriptor, valueParameter, pbIdentifier) {
     let method = "setOneofField"
@@ -1094,9 +1086,9 @@ function createOneOfSetterBlock(descriptor, fieldDescriptor, valueParameter, pbI
 
 
 /**
- * @param {descriptor.FieldDescriptorProto} fieldDescriptor 
- * @param {ts.Identifier} valueParameter 
- * @param {ts.Identifier} pbIdentifier 
+ * @param {descriptor.FieldDescriptorProto} fieldDescriptor
+ * @param {ts.Identifier} valueParameter
+ * @param {ts.Identifier} pbIdentifier
  */
 function createSetterBlock(fieldDescriptor, valueParameter, pbIdentifier) {
     let method = "setField"
@@ -1924,8 +1916,8 @@ function createSerializeBinary() {
 
 /**
  * Returns a class for the message descriptor
- * @param {descriptor.FileDescriptorProto} rootDescriptor 
- * @param {descriptor.DescriptorProto} messageDescriptor 
+ * @param {descriptor.FileDescriptorProto} rootDescriptor
+ * @param {descriptor.DescriptorProto} messageDescriptor
  * @param {ts.Identifier} pbIdentifier
  */
 function createMessage(

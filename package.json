@@ -1,7 +1,7 @@
 {
-  "name": "protoc-gen-ts",
+  "name": "@changyenh/protoc-gen-ts",
   "description": "Compile protocol buffers descriptors to Typescript.",
-  "version": "0.8.1",
+  "version": "0.8.3",
   "license": "MIT",
   "author": {
     "email": "thesayyn@gmail.com",
@@ -14,8 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/thesayyn/protoc-gen-ts"
+    "url": "https://github.com/changyenh/protoc-gen-ts"
   },
+  "contributors": [{
+    "email": "changyenhtw@gmail.com",
+    "name": "changyenh",
+    "url": "https://github.com/changyenh"
+  }],
   "scripts": {
     "test": "bazel build //test:codegen //test:codegen_experimental //test/conformance:codegen && node ./scripts/sync_generated_protos.js test && bazel test //test/... --test_output=errors",
     "release": "npm publish --access public --tag latest --registry https://registry.npmjs.org",

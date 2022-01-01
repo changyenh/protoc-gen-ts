@@ -4,6 +4,10 @@
 ![npm](https://img.shields.io/npm/v/protoc-gen-ts)
 ![npm](https://img.shields.io/npm/dm/protoc-gen-ts)
 
+This repository is forked from [thesayyn/protoc-gen-ts](https://github.com/thesayyn/protoc-gen-ts)
+
+---
+
 Aim of this protoc plugin is to make usage of protocol buffers easy in Javascript/Typescript by taking modern approaches.  This plugin generates plain **Typescript** files that can be used AMD, UMD, CommonJS module systems.
 
 
